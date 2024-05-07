@@ -23,7 +23,7 @@ biocViews:
     Visualization
 BugReports: https://github.com/HectorRDB/condiments/issues
 Imports: 
-    slingshot (>= 1.9),
+    slingshotadapt (>= 1.9),
     mgcv,
     RANN,
     stats,
