@@ -106,7 +106,7 @@
 #' @param args_classifier arguments passed to the classifier test. See \code{\link{classifier_test}}.
 #' @param classifier_method The method used in the classifier test. Default to
 #' "rf", i.e random forest.
-#' @importFrom slingshot slingshot SlingshotDataSet
+#' @importFrom slingshotadapt slingshot SlingshotDataSet
 #' @importFrom utils combn
 #' @importFrom dplyr n_distinct
 #' @importFrom Ecume classifier_test mmd_test wasserstein_permut
@@ -124,7 +124,7 @@
 #' cl <- slingshotExample$cl
 #' condition <- factor(rep(c('A','B'), length.out = nrow(rd)))
 #' condition[110:139] <- 'A'
-#' sds <- slingshot::slingshot(rd, cl)
+#' sds <- slingshotadapt::slingshot(rd, cl)
 #' fateSelectionTest(sds, condition)
 #' @export
 #' @rdname fateSelectionTest
@@ -157,7 +157,7 @@ setMethod(f = "fateSelectionTest",
 
 
 #' @rdname fateSelectionTest
-#' @importFrom slingshot as.PseudotimeOrdering
+#' @importFrom slingshotadapt as.PseudotimeOrdering
 setMethod(f = "fateSelectionTest",
           signature = c(cellWeights = "SlingshotDataSet"),
           definition = function(cellWeights, conditions, global = TRUE,
@@ -211,7 +211,7 @@ setMethod(f = "fateSelectionTest",
                 stop("conditions is not a column of colData(cellWeights)")
               }
             }
-            return(fateSelectionTest(slingshot::SlingshotDataSet(cellWeights),
+            return(fateSelectionTest(slingshotadapt::SlingshotDataSet(cellWeights),
                                      conditions = conditions, global = global,
                                      pairwise = pairwise, method = method,
                                      classifier_method = classifier_method,
@@ -243,7 +243,7 @@ setMethod(f = "fateSelectionTest",
                       "only the Classifier method is possible.")
             }
             if (slingParams(cellWeights)$reweight | slingParams(cellWeights)$reassign) {
-              ws <- slingshot::slingCurveWeights(cellWeights, as.probs = TRUE)
+              ws <- slingshotadapt::slingCurveWeights(cellWeights, as.probs = TRUE)
             } else {
               ws <- .sling_reassign(cellWeights)
             }

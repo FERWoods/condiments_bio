@@ -20,7 +20,7 @@ topologyTest(sds, ...)
   args_mmd = list(),
   args_classifier = list(),
   args_wass = list(),
-  nmax = nrow(slingshot::slingPseudotime(sds)),
+  nmax = nrow(slingshotadapt::slingPseudotime(sds)),
   distinct_samples = NULL
 )
 
@@ -50,7 +50,7 @@ topologyTest(sds, ...)
   args_mmd = list(),
   args_classifier = list(),
   args_wass = list(),
-  nmax = nrow(slingshot::slingPseudotime(sds)),
+  nmax = nrow(slingshotadapt::slingPseudotime(sds)),
   distinct_samples = NULL
 )
 }
@@ -119,6 +119,6 @@ rd <- slingshotExample$rd
 cl <- slingshotExample$cl
 condition <- factor(rep(c('A','B'), length.out = nrow(rd)))
 condition[110:139] <- 'A'
-sds <- slingshot::getLineages(rd, cl)
+sds <- slingshotadapt::getLineages(rd, cl)
 topologyTest(sds, condition, rep = 10)
 }

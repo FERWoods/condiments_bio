@@ -112,6 +112,6 @@ rd <- slingshotExample$rd
 cl <- slingshotExample$cl
 condition <- factor(rep(c('A','B'), length.out = nrow(rd)))
 condition[110:139] <- 'A'
-sds <- slingshot::slingshot(rd, cl)
+sds <- slingshotadapt::slingshot(rd, cl)
 fateSelectionTest(sds, condition)
 }

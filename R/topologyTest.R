@@ -3,10 +3,10 @@
   sdss <- slingshot_conditions(sds, conditions, adjust_skeleton = FALSE,
                                verbose = verbose,
                                approx_points = slingParams(sds)$approx_points)
-  psts <- lapply(sdss, slingshot::slingPseudotime, na = FALSE) %>%
+  psts <- lapply(sdss, slingshotadapt::slingPseudotime, na = FALSE) %>%
     lapply(., as.data.frame) %>%
     bind_rows(., .id = "condition")
-  ws <- lapply(sdss, slingshot::slingCurveWeights) %>%
+  ws <- lapply(sdss, slingshotadapt::slingCurveWeights) %>%
     lapply(., as.data.frame) %>%
     bind_rows(., .id = "condition")
   # If a lineage is missing for some condition, we use the others to extrapolate
@@ -21,7 +21,7 @@
     cond_not_lin <- names(sdss)[!has_lin]
     for (cond in cond_not_lin) {
       psts[psts$condition == cond, lin] <- lapply(sdss_lin, function(sds_lin) {
-        new_pst <- slingshot::predict(object = sds_lin, slingReducedDim(sdss[[cond]])) %>%
+        new_pst <- slingshotadapt::predict(object = sds_lin, slingReducedDim(sdss[[cond]])) %>%
           slingPseudotime(., na = FALSE)
         new_pst <- new_pst[, lin]
       }) %>%
@@ -29,7 +29,7 @@
         `/`(., sum(has_lin))
       ws[ws$condition == cond, lin] <-
         lapply(sdss_lin, function(sds_lin) {
-          new_ws <- slingshot::predict(object = sds_lin, slingReducedDim(sdss[[cond]])) %>%
+          new_ws <- slingshotadapt::predict(object = sds_lin, slingReducedDim(sdss[[cond]])) %>%
             slingCurveWeights()
           new_ws <- new_ws[, lin]
         }) %>%
@@ -227,7 +227,7 @@
                           methods = "KS_mean", parallel = FALSE,
                           BPPARAM = BiocParallel::bpparam(), args_mmd = list(),
                           args_classifier = list(), args_wass = list(),
-                          nmax = nrow(slingshot::slingPseudotime(sds)),
+                          nmax = nrow(slingshotadapt::slingPseudotime(sds)),
                           distinct_samples = NULL) {
   curves <- .generate_permutations_curves(sds, conditions, rep, BPPARAM, parallel)
   res <- .topologyTest_all_selected(curves$permutations, curves$og, conditions,
@@ -278,7 +278,7 @@
 #' cl <- slingshotExample$cl
 #' condition <- factor(rep(c('A','B'), length.out = nrow(rd)))
 #' condition[110:139] <- 'A'
-#' sds <- slingshot::getLineages(rd, cl)
+#' sds <- slingshotadapt::getLineages(rd, cl)
 #' topologyTest(sds, condition, rep = 10)
 #' @details If there is only two conditions, default to `KS_mean`. Otherwise,
 #' uses a classifier.
@@ -290,7 +290,7 @@
 #' something of that order of magnitude to avoid overflowing the memory.
 #' @export
 #' @importFrom Ecume classifier_test ks_test wasserstein_permut
-#' @importFrom slingshot SlingshotDataSet getCurves slingPseudotime slingCurveWeights
+#' @importFrom slingshotadapt SlingshotDataSet getCurves slingPseudotime slingCurveWeights
 #' @importFrom dplyr n_distinct bind_rows
 #' @importFrom pbapply pblapply
 #' @importFrom distinct distinct_test
@@ -310,7 +310,7 @@ setMethod(f = "topologyTest",
                                 args_mmd = list(),
                                 args_classifier = list(),
                                 args_wass = list(),
-                                nmax = nrow(slingshot::slingPseudotime(sds)),
+                                nmax = nrow(slingshotadapt::slingPseudotime(sds)),
                                 distinct_samples = NULL){
             if (n_distinct(conditions) > 2 && methods != "Classifier") {
               warning("Changing to methods `classifier` since more than ",
@@ -364,7 +364,7 @@ setMethod(f = "topologyTest",
                 stop("conditions is not a column of colData(sds)")
               }
             }
-            return(topologyTest(slingshot::SlingshotDataSet(sds),
+            return(topologyTest(slingshotadapt::SlingshotDataSet(sds),
                                 conditions = conditions,
                                 rep = rep,
                                 threshs = threshs,
@@ -395,7 +395,7 @@ setMethod(f = "topologyTest",
                                 args_mmd = list(),
                                 args_classifier = list(),
                                 args_wass = list(),
-                                nmax = nrow(slingshot::slingPseudotime(sds)),
+                                nmax = nrow(slingshotadapt::slingPseudotime(sds)),
                                 distinct_samples = NULL){
             if (n_distinct(conditions) > 2 && methods != "Classifier") {
               warning("Changing to methods `classifier` since more than ",

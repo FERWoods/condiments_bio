@@ -71,7 +71,7 @@ setMethod(f = "weights_from_pst",
 #' @param scale If TRUE (default), lineages that are mapped are scaled to have the same
 #' length.
 #' @return A modified slingshot dataset that can be used for downstream steps.
-#' @import slingshot
+#' @import slingshotadapt
 #' @importFrom dplyr bind_rows
 #' @importClassesFrom TrajectoryUtils PseudotimeOrdering
 #' @details The function assumes that each lineage in a dataset maps to exactly one lineage

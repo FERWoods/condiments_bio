@@ -88,32 +88,32 @@
   return(sds)
 }
 
-#' Conditions slingshot
+#' Conditions slingshotadapt
 #'
-#' @description Based on an original slingshot object, refit one trajectory per
+#' @description Based on an original slingshotadapt object, refit one trajectory per
 #' condition, using the same skeleton.
 #'
-#' @param sds A slingshot object already run on the full dataset. Can be either a
-#' \code{\link{SlingshotDataSet}} or a \code{\link{SingleCellExperiment}} object.
+#' @param sds A slingshotadapt object already run on the full dataset. Can be either a
+#' \code{\link{slingshotadaptDataSet}} or a \code{\link{SingleCellExperiment}} object.
 #' @param conditions Either the vector of conditions, or a character indicating which
 #' column of the metadata contains this vector.
-#' @param approx_points Passed to \code{\link[slingshot]{getCurves}}
+#' @param approx_points Passed to \code{\link[slingshotadapt]{getCurves}}
 #' @param adjust_skeleton Boolean, default to `TRUE`. Whether to recompute the locations
 #' of the nodes after fitting per conditions.
 #' @param verbose Boolean, default to `TRUE`. Control whether messages are printed.
-#' @param ... Other arguments passed to \code{\link[slingshot]{getCurves}}
+#' @param ... Other arguments passed to \code{\link[slingshotadapt]{getCurves}}
 #' @return
-#' A list of \code{\link[slingshot]{SlingshotDataSet}}, one per condition.
+#' A list of \code{\link[slingshotadapt]{slingshotadaptDataSet}}, one per condition.
 #' @examples
-#' data('slingshotExample', package = "slingshot")
-#' rd <- slingshotExample$rd
-#' cl <- slingshotExample$cl
+#' data('slingshotadaptExample', package = "slingshotadapt")
+#' rd <- slingshotadaptExample$rd
+#' cl <- slingshotadaptExample$cl
 #' condition <- factor(rep(c('A','B'), length.out = nrow(rd)))
 #' condition[110:139] <- 'A'
-#' sds <- slingshot::slingshot(rd, cl)
+#' sds <- slingshotadapt::slingshotadapt(rd, cl)
 #' sdss <- slingshot_conditions(sds, condition)
 #' @export
-#' @importFrom slingshot SlingshotDataSet getCurves as.PseudotimeOrdering
+#' @importFrom slingshotadapt SlingshotDataSet getCurves as.PseudotimeOrdering
 #' @importFrom utils tail
 #' @importFrom dplyr n_distinct
 #' @rdname slingshot_conditions
@@ -140,7 +140,7 @@ setMethod(f = "slingshot_conditions",
           definition = function(sds, conditions, approx_points = 100,
                                 adjust_skeleton = TRUE, verbose = TRUE, ...) {
             if (is.null(sds@int_metadata$slingshot) & is.null(colData(sds)$slingshot)) {
-              stop("For now this only works downstream of slingshot")
+              stop("For now this only works downstream of slingshotadapt")
             }
             if (length(conditions) == 1) {
               if (conditions %in% colnames(SummarizedExperiment::colData(sds))) {
@@ -161,7 +161,7 @@ setMethod(f = "slingshot_conditions",
 
 #' @rdname slingshot_conditions
 #' @importClassesFrom TrajectoryUtils PseudotimeOrdering
-#' @importFrom slingshot slingLineages slingClusterLabels slingMST
+#' @importFrom slingshotadapt slingLineages slingClusterLabels slingMST
 #' @importFrom igraph delete_vertices
 #' @export
 setMethod(f = "slingshot_conditions",

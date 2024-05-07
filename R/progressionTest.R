@@ -159,7 +159,7 @@
 #' with method `distinct`. See `\code{\link{distinct_test}}` for help.
 #' @param rep Number of permutations to run. Only for methods "Permutations" and
 #' "wasserstein_permutation". Default to \code{1e4}.
-#' @importFrom slingshot slingshot SlingshotDataSet slingPseudotime slingCurveWeights
+#' @importFrom slingshotadapt slingshot SlingshotDataSet slingPseudotime slingCurveWeights
 #' @importFrom stats weighted.mean
 #' @importFrom dplyr n_distinct bind_rows mutate select distinct
 #' @importFrom distinct distinct_test
@@ -237,7 +237,7 @@ setMethod(f = "progressionTest",
 )
 
 #' @rdname progressionTest
-#' @importFrom slingshot as.PseudotimeOrdering
+#' @importFrom slingshotadapt as.PseudotimeOrdering
 setMethod(f = "progressionTest",
           signature = c(pseudotime = "SlingshotDataSet"),
           definition = function(pseudotime, conditions, global = TRUE,
@@ -296,7 +296,7 @@ setMethod(f = "progressionTest",
                 stop("conditions is not a column of colData(pseudotime)")
               }
             }
-            return(progressionTest(slingshot::SlingshotDataSet(pseudotime),
+            return(progressionTest(slingshotadapt::SlingshotDataSet(pseudotime),
                                    conditions = conditions, global = global,
                                    lineages = lineages, method = method,
                                    thresh = thresh, rep = rep,
@@ -328,8 +328,8 @@ setMethod(f = "progressionTest",
                       "two conditions are present.")
               method <- "Classifier"
             }
-            pst <- slingshot::slingPseudotime(pseudotime, na = FALSE)
-            ws <- slingshot::slingCurveWeights(pseudotime, as.probs = TRUE)
+            pst <- slingshotadapt::slingPseudotime(pseudotime, na = FALSE)
+            ws <- slingshotadapt::slingCurveWeights(pseudotime, as.probs = TRUE)
             res <- .progressionTest(pst = pst, ws = ws, conditions = conditions,
                                     global = global, lineages = lineages,
                                     method = method, thresh = thresh,

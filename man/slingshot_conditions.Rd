@@ -37,15 +37,15 @@ slingshot_conditions(sds, ...)
 )
 }
 \arguments{
-\item{sds}{A slingshot object already run on the full dataset. Can be either a
-\code{\link{SlingshotDataSet}} or a \code{\link{SingleCellExperiment}} object.}
+\item{sds}{A slingshotadapt object already run on the full dataset. Can be either a
+\code{\link{slingshotadaptDataSet}} or a \code{\link{SingleCellExperiment}} object.}
 
-\item{...}{Other arguments passed to \code{\link[slingshot]{getCurves}}}
+\item{...}{Other arguments passed to \code{\link[slingshotadapt]{getCurves}}}
 
 \item{conditions}{Either the vector of conditions, or a character indicating which
 column of the metadata contains this vector.}
 
-\item{approx_points}{Passed to \code{\link[slingshot]{getCurves}}}
+\item{approx_points}{Passed to \code{\link[slingshotadapt]{getCurves}}}
 
 \item{adjust_skeleton}{Boolean, default to `TRUE`. Whether to recompute the locations
 of the nodes after fitting per conditions.}
@@ -53,18 +53,18 @@ of the nodes after fitting per conditions.}
 \item{verbose}{Boolean, default to `TRUE`. Control whether messages are printed.}
 }
 \value{
-A list of \code{\link[slingshot]{SlingshotDataSet}}, one per condition.
+A list of \code{\link[slingshotadapt]{slingshotadaptDataSet}}, one per condition.
 }
 \description{
-Based on an original slingshot object, refit one trajectory per
+Based on an original slingshotadapt object, refit one trajectory per
 condition, using the same skeleton.
 }
 \examples{
-data('slingshotExample', package = "slingshot")
-rd <- slingshotExample$rd
-cl <- slingshotExample$cl
+data('slingshotadaptExample', package = "slingshotadapt")
+rd <- slingshotadaptExample$rd
+cl <- slingshotadaptExample$cl
 condition <- factor(rep(c('A','B'), length.out = nrow(rd)))
 condition[110:139] <- 'A'
-sds <- slingshot::slingshot(rd, cl)
+sds <- slingshotadapt::slingshotadapt(rd, cl)
 sdss <- slingshot_conditions(sds, condition)
 }

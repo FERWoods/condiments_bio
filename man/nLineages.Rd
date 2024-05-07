@@ -17,7 +17,7 @@ nLineages(sds, ...)
 }
 \arguments{
 \item{sds}{A slingshot object already run on the full dataset. Can be either a
-\code{\link[slingshot]{SlingshotDataSet}} or a
+\code{\link[slingshotadapt]{SlingshotDataSet}} or a
 \code{\link[SingleCellExperiment]{SingleCellExperiment}} object.}
 
 \item{...}{parameters including:}
@@ -34,6 +34,6 @@ if (!"cl" \%in\% ls()) {
   rd <- slingshotExample$rd
   cl <- slingshotExample$cl
 }
-sds <- slingshot::slingshot(rd, cl)
+sds <- slingshotadapt::slingshot(rd, cl)
 nLineages(sds)
 }

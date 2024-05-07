@@ -2,7 +2,7 @@
 #'
 #' @description Return the number of lineages for a slingshot object
 #' @param sds A slingshot object already run on the full dataset. Can be either a
-#' \code{\link[slingshot]{SlingshotDataSet}} or a
+#' \code{\link[slingshotadapt]{SlingshotDataSet}} or a
 #' \code{\link[SingleCellExperiment]{SingleCellExperiment}} object.
 #' @export
 #' @examples
@@ -11,30 +11,30 @@
 #'   rd <- slingshotExample$rd
 #'   cl <- slingshotExample$cl
 #' }
-#' sds <- slingshot::slingshot(rd, cl)
+#' sds <- slingshotadapt::slingshot(rd, cl)
 #' nLineages(sds)
 #' @rdname nLineages
 #' @importClassesFrom SingleCellExperiment SingleCellExperiment
 #' @return The number of lineages in the slingshot object
-#' @importFrom slingshot SlingshotDataSet
+#' @importFrom slingshotadapt SlingshotDataSet
 setMethod(f = "nLineages",
           signature = c(sds = "SingleCellExperiment"),
           definition = function(sds){
             if (is.null(sds@int_metadata$slingshot)) {
               stop("No slingshot object")
             } else {
-              return(nLineages(slingshot::SlingshotDataSet(sds)))
+              return(nLineages(slingshotadapt::SlingshotDataSet(sds)))
             }
           }
 )
 
 #' @export
 #' @rdname nLineages
-#' @importClassesFrom slingshot SlingshotDataSet
+#' @importClassesFrom slingshotadapt SlingshotDataSet
 setMethod(f = "nLineages",
           signature = c(sds = "SlingshotDataSet"),
           definition = function(sds){
-            return(length(slingshot::slingCurves(sds)))
+            return(length(slingshotadapt::slingCurves(sds)))
           }
 )
 
@@ -44,6 +44,6 @@ setMethod(f = "nLineages",
 setMethod(f = "nLineages",
           signature = c(sds = "PseudotimeOrdering"),
           definition = function(sds){
-            return(length(slingshot::slingCurves(sds)))
+            return(length(slingshotadapt::slingCurves(sds)))
           }
 )

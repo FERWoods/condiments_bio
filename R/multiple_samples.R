@@ -123,7 +123,7 @@ setMethod(f = "fateSelectionTest_multipleSamples",
               }
             }
             return(fateSelectionTest_multipleSamples(
-              slingshot::SlingshotDataSet(cellWeights),
+              slingshotadapt::SlingshotDataSet(cellWeights),
               conditions = conditions, Samples = Samples, ...))
           })
 
@@ -137,7 +137,7 @@ setMethod(f = "fateSelectionTest_multipleSamples",
               stop("This only works with more than one lineage.")
             }
             if (slingParams(cellWeights)$reweight | slingParams(cellWeights)$reassign) {
-              ws <- slingshot::slingCurveWeights(cellWeights, as.probs = TRUE)
+              ws <- slingshotadapt::slingCurveWeights(cellWeights, as.probs = TRUE)
             } else {
               ws <- .sling_reassign(cellWeights)
             }
@@ -182,7 +182,7 @@ setMethod(f = "progressionTest_multipleSamples",
 })
 
 #' @rdname progressionTest_multipleSamples
-#' @importFrom slingshot as.PseudotimeOrdering
+#' @importFrom slingshotadapt as.PseudotimeOrdering
 setMethod(f = "progressionTest_multipleSamples",
           signature = c(pseudotime = "SlingshotDataSet"),
           definition = function(pseudotime, conditions, Samples, ...){
@@ -212,7 +212,7 @@ setMethod(f = "progressionTest_multipleSamples",
               }
             }
             return(progressionTest_multipleSamples(
-              slingshot::SlingshotDataSet(pseudotime),
+              slingshotadapt::SlingshotDataSet(pseudotime),
               conditions = conditions, Samples = Samples, ...))
 })
 
@@ -222,8 +222,8 @@ setMethod(f = "progressionTest_multipleSamples",
 setMethod(f = "progressionTest_multipleSamples",
           signature = c(pseudotime = "PseudotimeOrdering"),
           definition = function(pseudotime, conditions, Samples, ...){
-            pst <- slingshot::slingPseudotime(pseudotime, na = FALSE)
-            ws <- slingshot::slingCurveWeights(pseudotime, as.probs = TRUE)
+            pst <- slingshotadapt::slingPseudotime(pseudotime, na = FALSE)
+            ws <- slingshotadapt::slingCurveWeights(pseudotime, as.probs = TRUE)
             return(.multiple_samples(NULL, pst, ws, conditions,
                                      "progressionTest", Samples, ...))
           })
@@ -241,7 +241,7 @@ setMethod(f = "progressionTest_multipleSamples",
 #' column of the metadata contains this vector.
 #' @param Samples A vector assigning each cell to a sample. Samples must be shared across all conditions.
 #' @param ... Other arguments passed to \code{\link{topologyTest}}.
-#' @import slingshot
+#' @import slingshotadapt
 #' @importFrom dplyr across starts_with
 #' @return The same object has the \code{\link{topologyTest}} with one more column per sample.
 #' @examples
@@ -285,7 +285,7 @@ setMethod(f = "topologyTest_multipleSamples",
                 stop("conditions is not a column of colData(sds)")
               }
             }
-            return(topologyTest(slingshot::SlingshotDataSet(sds),
+            return(topologyTest(slingshotadapt::SlingshotDataSet(sds),
                                 conditions = conditions, Samples, ...))
           }
 )
