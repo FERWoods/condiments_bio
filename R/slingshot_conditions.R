@@ -66,7 +66,7 @@
       }
       sds_cond <- .clean_mst(sds_cond, cluss)
     }
-    sdss[[cond]] <- slingshot::getCurves(sds_cond, approx_points = approx_points,
+    sdss[[cond]] <- slingshotadapt::getCurves(sds_cond, approx_points = approx_points,
                                          ...)
   }
   return(sdss)
@@ -149,7 +149,7 @@ setMethod(f = "slingshot_conditions",
                 stop("conditions is not a column of colData(sds)")
               }
             }
-            return(slingshot_conditions(slingshot::SlingshotDataSet(sds),
+            return(slingshot_conditions(slingshotadapt::SlingshotDataSet(sds),
                                         conditions = conditions,
                                         approx_points = approx_points,
                                         adjust_skeleton = adjust_skeleton,
