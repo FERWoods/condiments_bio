@@ -93,7 +93,7 @@ setMethod(f = "fateSelectionTest_multipleSamples",
           })
 
 #' @rdname fateSelectionTest_multipleSamples
-#' @importFrom slingshot as.PseudotimeOrdering
+#' @importFrom slingshotadapt as.PseudotimeOrdering
 setMethod(f = "fateSelectionTest_multipleSamples",
           signature = c(cellWeights = "SlingshotDataSet"),
           definition = function(cellWeights, conditions, Samples, ...){
